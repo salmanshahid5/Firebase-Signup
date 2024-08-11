@@ -1,8 +1,7 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAaB0dndRJbnkVys_eweiYqny2n8ODWDII",
   authDomain: "first-project-47348.firebaseapp.com",
@@ -16,7 +15,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export{
-    auth,
-    createUserWithEmailAndPassword
-}
+// Export the necessary Firebase functions
+export { auth, createUserWithEmailAndPassword };
