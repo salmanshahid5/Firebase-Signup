@@ -1,5 +1,13 @@
-import { auth, createUserWithEmailAndPassword } from "./firebase.js";
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+} from "./firebase.js";
 
+// <------------ for animation ----------------->
 var x = document.getElementById("login");
 var y = document.getElementById("register");
 
@@ -12,9 +20,11 @@ function register() {
   x.style.left = "-510px";
   y.style.right = "5px";
 }
+
 window.login = login;
 window.register = register;
 
+//  <-------sign up page ------>
 let signup = (event) => {
   event.preventDefault();
 
@@ -30,7 +40,6 @@ let signup = (event) => {
     return;
   }
 
-  // Password length check
   if (password.length < 8) {
     alert("Password must be eight characters");
     return;
@@ -49,15 +58,105 @@ let signup = (event) => {
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
 
-      // Show login form after successful signup
       login();
       alert("Registration successful! Please log in.");
     })
     .catch((error) => {
       console.log("Error:", error.message);
-      alert(error.message); // Show error to the user
+      alert(error.message);
     });
 };
 
 let submitBtn = document.getElementById("submit");
 submitBtn.addEventListener("click", signup);
+
+//  <------- login page ------>
+
+let loginUser = (event) => {
+  event.preventDefault();
+
+  let email = document.getElementById("emailLogin").value;
+  let password = document.getElementById("passwordLogin").value;
+
+  const formBox = document.getElementById("formbox");
+  formBox.style.minHeight = "400px";
+
+  // All fields check
+  if (!email || !password) {
+    alert("All Fields Are Required");
+    return;
+  }
+
+  if (password.length < 8) {
+    alert("Password must be eight characters");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((response) => {
+      // Signed in
+      const userLogin = response.user;
+      console.log(userLogin);
+
+      // Clear the form fields
+      document.getElementById("emailLogin").value = "";
+      document.getElementById("passwordLogin").value = "";
+
+      window.location.href = "home.html";
+    })
+    .catch((error) => {
+      console.log("Error:", error.message);
+      alert(error.message);
+    });
+};
+
+let loginSubmit = document.getElementById("signIn");
+loginSubmit.addEventListener("click", loginUser);
+
+//  <-------google login ------>
+
+let googleSignUp = (event) => {
+  event.preventDefault();
+  const googleProvider = new GoogleAuthProvider();
+  signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      console.log("token==>", token);
+      console.log("user==>", user);
+
+      // Redirect to home or dashboard
+      window.location.href = "home.html";
+    })
+    .catch((error) => {
+      console.log("Error:", error.message);
+      alert(error.message);
+    });
+};
+
+let googleBtn = document.getElementById("google");
+googleBtn.addEventListener("click", googleSignUp);
+
+//  <-------Forget Password ------>
+
+let forget = () => {
+  let emailPassword = document.getElementById("emailLogin").value;
+  console.log(emailPassword);
+  
+
+  if (emailPassword) {
+    sendPasswordResetEmail(auth, emailPassword)
+      .then(() => {
+        alert("Password reset email sent! Check your inbox.");
+        document.getElementById('emailLogin').value = "";
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  } else {
+    alert("Please enter your email address.");
+  }
+};
+let forgotPassword = document.getElementById("forgotPassword");
+forgotPassword.addEventListener("click", forget);

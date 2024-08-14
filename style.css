@@ -18,7 +18,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 512px;
-  height: 500px;
+  height: 550px;
   overflow: hidden;
   z-index: 2;
 }
@@ -107,17 +107,88 @@ header {
   background: #0056b3;
   box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
 }
+.separator {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #757575;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #757575;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.google-btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 @media only screen and (max-width: 540px) {
-    .form-box{
-        width: 100%;
-        height: 500px;
-    }
-    .register-container, .login-container{
-        width: 100%;
-        padding: 0 20px;
-    }
-    .register-container .two-forms{
-        flex-direction: column;
-        gap: 0;
-    }
+  .form-box {
+    width: 100%;
+    height: 600px;
+  }
+  .register-container,
+  .login-container {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .register-container .two-forms {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+/* home page styling */
+
+#homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+#homepage h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#username {
+  color: #007bff;
+  margin-left: 10px;
+}
+
+#logoutbtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#logoutbtn:hover {
+  background-color: #0056b3;
 }

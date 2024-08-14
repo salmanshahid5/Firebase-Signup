@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Project</title>
+    <title>Sign-Up/Sign-In</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="form-box">
+    <div class="form-box" id="formbox">
         
         <!------------------- login form -------------------------->
         <div class="login-container" id="login">
@@ -17,15 +17,23 @@
                 <header>Login</header>
             </div>
             <div class="input-box">
-                <input type="text" class="input-field" placeholder="Username or Email">
+                <input type="text" class="input-field" placeholder="Username or Email" id="emailLogin">
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
+                <input type="password" class="input-field" placeholder="Password" id="passwordLogin">
                 <i class="fa-solid fa-lock"></i>
             </div>
             <div class="input-box">
-                <input type="submit" class="submit" value="Sign In">
+                <input type="submit" class="submit" value="Sign In" id="signIn">
+            </div>
+            <a href="#" class="forgot-password" id="forgotPassword" style="color: #0056b3;">Forgot Password?</a>
+            <div class="separator">OR</div>
+            <div class="input-box">
+                <button id="google" class="google-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
+                    Continue with Google
+                </button>
             </div>
         </div>
         <!------------------- registration form -------------------------->
@@ -61,6 +69,8 @@
             </div>
            </div>
         </div>    
+        
+    <script src="firebase.js" type="module"></script>
     <script src="app.js" type="module"></script>
 </body>
 </html>
