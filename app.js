@@ -5,6 +5,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  db,
+  doc,
+  setDoc,
 } from "./firebase.js";
 
 // <------------ for animation ----------------->
@@ -46,10 +49,30 @@ let signup = (event) => {
   }
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then((response) => {
-      // Signed up
+    .then(async (response) => {
+      // Signed up successfully, retrieve the user
       const user = response.user;
-      console.log(user);
+      console.log("User created:", user);
+
+      if (!user || !user.uid) {
+        throw new Error("User or UID is undefined. Cannot proceed.");
+      }
+
+      // Add data to Firestore
+      try {
+        const uid = user.uid;
+        await setDoc(doc(db, "users", uid), {
+          firstName: fname,
+          lastName: lname,
+          userName: username,
+          email: email,
+        });
+        console.log("Document successfully written!");
+        alert("Registration successful! Please log in.");
+      } catch (error) {
+        console.error("Error writing document:", error);
+        alert("Failed to store user data in Firestore: " + error.message);
+      }
 
       // Clear the form fields
       document.getElementById("fname").value = "";
@@ -58,11 +81,11 @@ let signup = (event) => {
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
 
+      // Redirect to login
       login();
-      alert("Registration successful! Please log in.");
     })
     .catch((error) => {
-      console.log("Error:", error.message);
+      console.log("Authentication Error:", error.message);
       alert(error.message);
     });
 };
@@ -143,13 +166,12 @@ googleBtn.addEventListener("click", googleSignUp);
 let forget = () => {
   let emailPassword = document.getElementById("emailLogin").value;
   console.log(emailPassword);
-  
 
   if (emailPassword) {
     sendPasswordResetEmail(auth, emailPassword)
       .then(() => {
         alert("Password reset email sent! Check your inbox.");
-        document.getElementById('emailLogin').value = "";
+        document.getElementById("emailLogin").value = "";
       })
       .catch((error) => {
         console.log(error.message);

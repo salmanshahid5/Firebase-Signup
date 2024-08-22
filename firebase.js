@@ -10,6 +10,12 @@ import {
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+import {
+  doc,
+  setDoc,
+  getFirestore,
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAaB0dndRJbnkVys_eweiYqny2n8ODWDII",
   authDomain: "first-project-47348.firebaseapp.com",
@@ -23,6 +29,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const GoogleProvider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
 export {
   auth,
@@ -34,4 +41,7 @@ export {
   onAuthStateChanged,
   signOut,
   sendPasswordResetEmail,
+  db,
+  doc,
+  setDoc,
 };
